@@ -1,0 +1,105 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #171717; /* Dark background for better visibility */
+}
+
+.card-container {
+    perspective: 600px;
+    width: 300px; /* Width of the card */
+    height: 450px; /* Height of the card */
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Ensure content stays within the card */
+    border-radius: 8px; /* Rounded corners for the card */
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.card img {
+    width: 100%;
+    height: 100%; /* Ensure the image covers the entire card */
+    object-fit: cover; /* Cover the card area */
+    display: block;
+    border-radius: inherit; /* Inherit border-radius from card */
+}
+
+/* Holographic Effect */
+.holo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(
+            45deg, 
+            rgba(255, 255, 255, 0.4) 0%, 
+            rgba(255, 255, 255, 0.2) 50%, 
+            rgba(0, 0, 0, 0.2) 50%, 
+            rgba(0, 0, 0, 0.4) 100%
+        ),
+        radial-gradient(
+            circle at 50% 50%, 
+            rgba(255, 255, 255, 0.3) 0%, 
+            rgba(255, 255, 255, 0) 70%
+        ),
+        url('https://cdn.discordapp.com/attachments/1203630198566813737/1267942194564563065/Screenshot_2024-07-30-21-28-17-14_40deb401b9ffe8e1df2f1cc5ba480b12.jpg?ex=66aa9eb0&is=66a94d30&hm=3fd06d031a5760c3975c96033ebddeafd61f48b5945ae95264b63525b3548fa1&');
+    background-size: 200px 200px; /* Adjust size for repeating texture */
+    background-blend-mode: exclusion; /* Blend texture with gradients */
+    mix-blend-mode: overlay; /* Ensure holographic look */
+    opacity: 0.1; /* Lower opacity for desired vibrancy */
+    pointer-events: none;
+    transform-style: preserve-3d; /* Ensure holo effect follows 3D transformations */
+    transition: transform 0.3s; /* Smooth transition for holo effect */
+    background-position: 0 0; /* Ensure texture is correctly positioned */
+}
+
+/* Shimmer Effect */
+@keyframes shimmer {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 100%;
+    }
+}
+
+.card-container:hover .holo {
+    animation: shimmer 15s infinite linear; /* Slower animation */
+}
+
+/* Shimmer Effect */
+.shine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at 50% 50%, 
+        rgba(255, 255, 255, 0.3) 0%, 
+        rgba(255, 255, 255, 0) 70%
+    );
+    filter: blur(4px); /* Adds a blur effect for softness */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+.card-container:hover .shine {
+    opacity: 0.8;
+}
